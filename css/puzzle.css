@@ -1,0 +1,18 @@
+.debug {
+  background-color: red;
+  /*height: 700px;*/
+}
+
+.debug-2{
+  background-color: yellow;
+  /*height: 700px;*/
+}
+
+.debug-3{
+  background-color: black;
+  /*height: 700px;*/
+}
+
+.canvas-wrapper{
+  margin-top: 2%;
+}

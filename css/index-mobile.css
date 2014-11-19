@@ -1,0 +1,671 @@
+
+/*@design-color: #99cc00;
+@tech-color: #1a4096;
+@neutral-color: #e9e9eb;*/
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+/* Styles */
+}
+
+/* Smartphones (landscape) ----------- */
+@media only screen
+and (min-width : 321px)
+and (max-width : 568px){
+/* Styles */
+  body{
+    font-size:10px;
+  }
+  .tagline{
+    display: none;
+  }
+
+  .main-content{
+    /*top: 31%;*/
+    /*position: absolute;
+    left: 5%;
+    right: 5%;*/
+    width: 89%;
+    height: 100%;
+    z-index: 1;
+
+    top: 20%;
+    position: absolute;
+    margin-left: 3%;
+  }
+
+  .container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    /*margin-left: auto;*/
+  }
+  .name-title{
+    color:#171717;
+    width: 89%;
+    margin: auto;
+    /*text-align: center;*/
+    font-size: 3.5em;
+    font-family: 'Squada One', cursive;
+    border-top: rgba(0,0,0,0.8) solid 1em;
+    position: fixed;
+    top: -3%;
+    margin-left: 3%;
+    padding-right: 13px;
+    padding-left: 13px;
+    z-index: 9999;
+    background-color: rgba(255,255,255,0.6);
+  }
+  .sec-desc{
+    display: none;
+  }
+  .alt-sec-desc{
+    /*font-size: 3.5em;
+    font-family: 'Squada One', cursive;*/
+    text-align: right;
+    float: right;
+    color: #fff;
+    /*padding-top: 1em;*/
+  }
+  .item-profile {
+    padding: 2px;
+    width: 50%;
+    float: left;
+  }
+  .row {
+    margin-bottom: 3px;
+  }
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen
+and (max-width : 320px) {
+/* Styles */
+  body{
+    font-size:9px;
+  }
+  .main-content{
+    /*top: 31%;*/
+    /*position: absolute;
+    left: 5%;
+    right: 5%;*/
+    height: 100%;
+    z-index: 1;
+  }
+  .container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .tagline{
+    display: block;
+  }
+
+  .name-title{
+    color:#171717;
+    width: 66%;
+    margin: auto;
+    text-align: center;
+    font-size: 3.5em;
+    font-family: 'Squada One', cursive;
+    border-top: rgba(0,0,0,0.7) solid 1.2em;
+  }
+  .alt-sec-desc{
+    display: none;
+  }
+}
+
+@media only screen
+and (min-width : 569px)
+and (max-width : 767px) {
+/* Styles */
+body{
+  font-size:13px;
+}
+.tagline{
+  display: block;
+}
+
+.name-title{
+  color:#171717;
+  width: 36%;
+  margin: auto;
+  text-align: center;
+  font-size: 3.5em;
+  font-family: 'Squada One', cursive;
+  border-top: rgba(0,0,0,0.7) solid 1.2em;
+}
+.item-profile{
+  padding: 1px;
+}
+.item-profile {
+  padding: 2px;
+  width: 50%;
+  float: left;
+}
+.item-row{
+  background: #fff;
+}
+}
+
+
+/* iPads (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+/* Styles */
+
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+/* Styles */
+  body{
+    font-size:12px;
+  }
+  .main-content{
+    /*top: 31%;*/
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    height: 100%;
+    z-index: 1;
+  }
+  .tagline{
+    display: block;
+  }
+
+  .name-title{
+    color:#171717;
+    width: 66%;
+    margin: auto;
+    text-align: center;
+    font-size: 3.5em;
+    font-family: 'Squada One', cursive;
+    border-top: rgba(0,0,0,0.7) solid 1.2em;
+  }
+  .item-profile{
+    padding: 1px;
+  }
+  .item-row{
+    background: #fff;
+  }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+/* Styles */
+  body{
+    font-size:13px;
+  }
+  .tagline{
+    display: block;
+  }
+
+  .name-title{
+    color:#171717;
+    width: 26%;
+    margin: auto;
+    text-align: center;
+    font-size: 3.5em;
+    font-family: 'Squada One', cursive;
+    border-top: rgba(0,0,0,0.7) solid 1.2em;
+  }
+  .item-profile{
+    padding: 1px;
+  }
+  .item-profile {
+    padding: 2px;
+    width: 50%;
+    float: left;
+  }
+  .item-row{
+    background: #fff;
+  }
+}
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+/*------------------------------------------------------------------*/
+
+body{
+  background-color: #e9e9eb;
+  height:100%;
+}
+
+
+.taglist{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  /*text-align: center;*/
+}
+.taglist li {
+  display: inline;
+}
+.tech-item {
+  /*visibility:hidden;*/
+}
+.design-item {
+  /*visibility:hidden;*/
+}
+
+.design-sec {
+  top: 0;
+  bottom: auto;
+  left: 0;
+  right: auto;
+  position: absolute;
+  display: block;
+  height: 180%;
+  width: 50%;
+  /*background-color: #e9e9eb;*/
+  z-index: -1;
+  overflow: hidden;
+}
+
+.design-colorOn {
+  background-color: #1a4096;
+}
+.tech-colorOn {
+  background-color: #99cc00;
+}
+
+.tech-sec {
+
+  top: 0;
+  bottom: auto;
+  left: auto;
+  right: 0;
+  position: absolute;
+  display: block;
+  height: 180%;
+  width: 50%;
+  /*background-color: #e9e9eb;*/
+  z-index: -1;
+  overflow: hidden;
+}
+
+
+.bar-title{
+  /*top: 40%;*/
+  /*position: fixed;*/
+  left: 15%;
+  right: 15%;
+  padding: 0px;
+  z-index: 3;
+  margin:0px;
+
+}
+.tagline {
+  padding: 0px;
+  margin-top: 0;
+  /*border-bottom: rgba(255,255,255,0.7) solid 1px;*/
+
+  /*background: rgba(0,0,0,0.7);*/
+}
+.linedblock {
+  border-bottom: rgba(255,255,255,0.7) solid 1px;
+  padding: 0px;
+  margin-top: 20%;
+}
+.design-sec-title, .tech-sec-title{
+  padding:0px;
+  margin:0px;
+}
+.design-tag, .tech-tag {
+  color:#fff;
+  font-size: 1.3em;
+  /*font-family: 'Playfair Display', serif;
+  font-family: 'Tinos', serif;
+  font-family: 'Josefin Slab', serif;
+  font-family: 'Squada One', cursive;
+  font-family: 'Patua One', cursive;*/
+  /*border-bottom: rgba(255,255,255,0.7) solid 1px;*/
+  padidng: 0px;
+  /*margin-top: 5px;*/
+  /*margin-bottom: 5px;*/
+  text-shadow:  7px 6px 0px rgba(0,0,0,0.08);
+
+}
+.design-dot, .tech-dot{
+    width: 20px;
+    height: 20px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    margin:-10px;
+
+}
+.design-tag{
+  background:#303030;
+  padding:5px;
+  margin:0px 3px 3px 0px;
+  float: left;
+}
+.tech-tag{
+  background:#303030;
+  padding:5px;
+  margin:0px 0px 3px 3px;
+  float: right;
+}
+.design-dot{
+  background: #99cc00;
+  float:left;
+  margin-left: -20px;
+}
+.tech-dot{
+  background: #1a4096;
+  float:right;
+  margin-right: -20px;
+}
+
+.text-active{
+  text-shadow: 7px 6px 0px rgba(0,0,0,0.5);
+}
+.dot-active{
+  background: #fff;
+}
+
+
+.desc-p{
+  width: 59%;
+  margin: auto;
+  /*margin-top: 10%;*/
+  font-size: 1em;
+  margin-bottom: 30px;
+  text-align: center;
+
+}
+.main-area{
+  margin:auto;
+}
+
+
+.item-profile-image{
+  width: 100%;
+  height: 33%;
+}
+
+.typed-cursor-custom{
+    opacity: 1;
+    color:#fff;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+.row{
+  margin-right: 0px;
+  margin-left: 0px;
+}
+.content-detail{
+  display:none;
+  background:#fff;
+  height: 350px;
+  /*width: 100%;*/
+}
+.nav-icon{
+  margin:2px;
+  padding:0px;
+  width:45px;
+  height:45px;
+}
+
+.icon-nav-bar{
+  /*padding:0px 5px;*/
+  position: relative;
+  float:left;
+  width:8.333%;
+  z-index: 100;
+}
+
+#nav-exit{
+  background-image:url('../img/nav-exit.png');
+  background-size:100%;
+}
+#nav-gallery{
+  background-image:url('../img/nav-gallery.png');
+  background-size:100%;
+}
+#nav-video{
+  background-image:url('../img/nav-video.png');
+  background-size:100%;
+}
+#nav-code{
+  background-image:url('../img/nav-code.png');
+  background-size:100%;
+}
+
+
+.content-head{
+  border-bottom: rgba(0,0,0,0.7) solid 1px;
+  margin-bottom: 5px;
+}
+.content-body{
+  margin-bottom: 10px;
+}
+
+.video-view {
+  margin-top:10px;
+  margin-bottom:10px;
+  position: relative;
+  padding-bottom: 56.25%;  /*16:9 */
+  /*padding-top: 25px;*/
+  height: 0;
+}
+.video-view iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-view {
+  display:none;
+  float: right;
+}
+
+.video-view{
+  display:none;
+}
+
+.content-detail{
+  background: #fff url('') no-repeat center;
+  background-size: 100% 100%;
+}
+
+/*Dot navi CSS----------------*/
+.dotstyle ul {
+  position: relative;
+  display: inline-block;
+  margin: 12px;
+  padding: 0;
+  list-style: none;
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.dotstyle li {
+  position: relative;
+  display: block;
+  float: right;
+  margin: 0 3px;
+  width: 1em;
+  height: 1em;
+  cursor: pointer;
+}
+
+.dotstyle li a {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border-radius: 50%;
+  background-color: #303030;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-indent: -999em; /* make the text accessible to screen readers */
+  cursor: pointer;
+  position: absolute;
+}
+
+.dotstyle li a:focus {
+  outline: none;
+}
+
+/* Fill in */
+
+.dotstyle-fillin li a {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 2px #606060;
+  -webkit-transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
+}
+
+.dotstyle-fillin li a:hover,
+.dotstyle-fillin li a:focus {
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.6)
+}
+
+.dotstyle-fillin li.current a {
+  box-shadow: inset 0 0 0 8px #606060;
+}
+
+.noborder {
+  /*border-bottom-: #fff;*/
+  border-bottom-style: none;
+}
+
+.preload {
+  display: none;
+}
+
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 40px solid #303030;
+  opacity:0.5;
+  float:right;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right:3px;
+  margin-top:12%;
+  z-index: 400;
+
+}
+
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-right: 40px solid #303030;
+  opacity:0.5;
+  float:left;
+  position: relative;
+  z-index: 400;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top:12%;
+  margin-left:3px;
+
+}
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeInLeft{
+  0% { opacity:0.5;border-right-color:#303030;}
+  100% { opacity:1;border-right-color:#99cc00;}
+}
+
+@-moz-keyframes fadeInLeft{
+  0% { opacity:0.5;border-right-color:#303030;}
+  100% { opacity:1;border-right-color:#99cc00;}
+}
+
+@keyframes fadeInLeft {
+  0% { opacity:0.5;border-right-color:#303030;}
+  100% { opacity:1;border-right-color:#99cc00;}
+}
+
+.fade-in-left {
+  opacity:0;  /* make things invisible upon start */
+  -webkit-animation:fadeInLeft ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:fadeInLeft ease-in 1;
+  animation:fadeInLeft ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:0.6s;
+  -moz-animation-duration:0.6s;
+  animation-duration:0.6s;
+}
+
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeInRight{
+  0% { opacity:0.5;border-left-color:#303030;}
+  100% { opacity:1;border-left-color:#99cc00;}
+}
+
+@-moz-keyframes fadeInRight{
+  0% { opacity:0.5;border-left-color:#303030;}
+  100% { opacity:1;border-left-color:#99cc00;}
+}
+
+@keyframes fadeInRight {
+  0% { opacity:0.5;border-left-color:#303030;}
+  100% { opacity:1;border-left-color:#99cc00;}
+}
+
+.fade-in-right {
+  opacity:0;  /* make things invisible upon start */
+  -webkit-animation:fadeInRight ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:fadeInRight ease-in 1;
+  animation:fadeInRight ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:0.6s;
+  -moz-animation-duration:0.6s;
+  animation-duration:0.6s;
+}
+
+.ui-loader {
+  display: none;
+}
