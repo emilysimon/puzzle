@@ -53,6 +53,8 @@ $(document).ready(function(){
 
 });
 
+//------adjustCanvasSize- Initially set canvas width and height for being respoinsive-----//
+
 function adjustCanvasSize(){
   //original pic size: width="1080" height="810"
   var cw = width-30;
@@ -62,6 +64,7 @@ function adjustCanvasSize(){
 
 }
 
+//------createPieces- Initially create and display puzzle pieces-----//
 
 function createPieces(data){
 
