@@ -7,6 +7,7 @@ var texture1, texture2, texture3;
 var pieceData = [
   {
     'index':'1',
+    'prototype':'',
     'pieceObj':'',
     'textureObj':'',
     'textureUrl':'./assets/test.png',
@@ -14,6 +15,7 @@ var pieceData = [
   },
   {
     'index':'2',
+    'prototype':'',
     'pieceObj':'',
     'textureObj':'',
     'textureUrl':'./assets/test2.png',
@@ -21,6 +23,7 @@ var pieceData = [
   },
   {
     'index':'3',
+    'prototype':'',
     'pieceObj':'',
     'textureObj':'',
     'textureUrl':'./assets/test3.png',
@@ -47,8 +50,14 @@ $(document).ready(function(){
     adjustCanvasSize();
     canvas = this.__canvas = new fabric.Canvas('canvas');
     for(var i = 0; i < pieceData.length ; i++){
+      createPrototypes(pieceData[i]);
+    }
+    for(var i = 0; i < pieceData.length ; i++){
       createPieces(pieceData[i]);
     }
+    canvas.on({
+      'object:moving': onChange
+    });
   });
 
 });
@@ -61,6 +70,14 @@ function adjustCanvasSize(){
   var ch = height*0.92;
 
   $('canvas').attr('width',cw+"px").attr('height',ch+"px");
+
+}
+
+function createPrototypes(data){
+
+  data.prototype = new fabric.Path(data.path);
+  data.prototype.set({selectable:false, hasControls:false, fill: 'rgba(255,255,255,0.2)', stroke: '#fff'});
+  canvas.add(data.prototype);
 
 }
 
@@ -91,7 +108,25 @@ function createPieces(data){
   data.pieceObj.fill = data.textureObj;
   // console.log(data.pieceObj);
   canvas.add(data.pieceObj);
-
   });
 
+}
+
+function onChange(options) {
+  // console.log(options.target.path);
+  // console.log(options.target);
+  var that = options.target;
+  var thatPrototype;
+
+
+  that.setCoords();
+  canvas.forEachObject(function(obj) {
+
+    if(!obj.selectable && obj.width === that.width && obj.height === that.height) {
+      thatPrototype=obj;
+    }
+  });
+
+  thatPrototype.setOptions(that.intersectsWithObject(thatPrototype) ? {fill:'rgba(255,0,0,0.2)' } : {fill:'rgba(255,255,255,0.2)'});
+  // alert("You got it!");
 }
