@@ -1,33 +1,126 @@
 var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+var scale;
 var canvas;
 var piece1, piece2, piece3;
 var texture1, texture2, texture3;
 
 var pieceData = [
   {
-    'index':'1',
+    'index':'11',
     'prototype':'',
     'pieceObj':'',
     'textureObj':'',
-    'textureUrl':'./assets/test.png',
-    'path':'M 310.807 252.303 L 291.308 383.546 L 268.809 383.546 L 78.318 388.796 L 73.068 388.796 L 53.569 228.304 L 53.569 220.055 L 176.563 220.055 L 178.813 238.054 z'
+    'textureUrl':'./assets/1-1.png',
+    'path':'M 196.192 122 L 56 122 L 56 263.5 L 172 263.5 z'
   },
   {
-    'index':'2',
+    'index':'12',
     'prototype':'',
     'pieceObj':'',
     'textureObj':'',
-    'textureUrl':'./assets/test2.png',
-    'path':'M 268.809 383.546 L 78.318 388.796 L 74.568 433.794 L 40.07 436.794 L 63.319 652.783 L 313.807 635.533 L 268.809 383.546 z'
+    'textureUrl':'./assets/1-2.png',
+    'path':'M 295 284.5 L 302.169 122 L 196.192 122 L 172 263.5 L 172 272.5 z'
   },
   {
-    'index':'3',
+    'index':'13',
     'prototype':'',
     'pieceObj':'',
     'textureObj':'',
-    'textureUrl':'./assets/test3.png',
-    'path':'M 268.809 383.546 L 291.308 383.546 L 310.807 252.303 L 367.054 252.303 L 367.054 264.302 L 526.046 276.302 L 533.546 302.551 L 722.536 324.299 L 722.536 405 L 754.035 412.795 L 763.784 648.283 L 313.807 635.533 z'
+    'textureUrl':'./assets/1-3.png',
+    'path':'M 399 301.5 L 414.236 122 L 302.169 122 L 295 284.5 L 295 294 z'
+  },
+  {
+    'index':'14',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/1-4.png',
+    'path':'M 606 236.75 L 603.295 122 L 414.236 122 L 404.731 233.979 L 529.5 240.5 z'
+  },
+  {
+    'index':'15',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/1-5.png',
+    'path':'M 603.295 122 L 606 236.75 L 609 259 L 656 268.5 L 760 268.5 L 760 122 z'
+  },
+  {
+    'index':'21',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/2-1.png',
+    'path':'M 109.425 373.725 L 102 374 L 89.934 263.5 L 56 263.5 L 56 407.708 L 104.667 403.333 z'
+  },
+  {
+    'index':'22',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/2-2.png',
+    'path':'M 246 368.667 L 259.208 281.008 L 172 272.5 L 172 263.5 L 89.934 263.5 L 102 374 z'
+
+  },
+  {
+    'index':'23',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/2-3.png',
+    'path':'M 527.615 332.25 L 529.5 240.5 L 404.731 233.979 L 399 301.5 L 404.731 319 z'
+  },
+  {
+    'index':'24',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/2-4.png',
+    'path':'M 644 396 L 656 268.5 L 609 259 L 606 236.75 L 529.5 240.5 L 526.5 386.5 z'
+
+  },
+  {
+    'index':'25',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/2-5.png',
+    'path':'M 656 268.5 L 644 396 L 760 396 L 760 268.5 z'
+  },
+  {
+    'index':'31',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/3-1.png',
+    'path':'M 98.123 547.197 L 95.333 547.333 L 80.34 405.52 L 56 407.708 L 56 554.25 L 98 547.333 z'
+
+  },
+  {
+    'index':'32',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/3-2.png',
+    'path':'M 259.208 539.333 L 230.975 369.223 L 109.425 373.725 L 104.667 403.333 L 80.34 405.52 L 95.333 547.333 z'
+
+  },
+  {
+    'index':'33',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/3-3.png',
+    'path':'M 580 564 L 674.667 558 L 681.068 396 L 644 396 L 548.13 388.249 L 551.333 559.333 z'
+  },
+  {
+    'index':'34',
+    'prototype':'',
+    'pieceObj':'',
+    'textureObj':'',
+    'textureUrl':'./assets/3-4.png',
+    'path':'M 695.333 564 L 760 560.306 L 760 396 L 681.068 396 L 674.815 554.249 L 674.815 554.25 z'
   }
 ];
 
@@ -42,8 +135,8 @@ $(document).ready(function(){
   });
 
   $(window).bind('resizeEnd', function () {
-    adjustCanvasSize();
-    canvas = new fabric.Canvas('canvas');
+    // adjustCanvasSize();
+    // canvas = new fabric.Canvas('canvas');
   });
 
   $(window).load(function() {
@@ -55,8 +148,9 @@ $(document).ready(function(){
     for(var i = 0; i < pieceData.length ; i++){
       createPieces(pieceData[i]);
     }
+    // adjustSize();
     canvas.on({
-      'object:moving': onChange
+      'touch:drag': onChange
     });
   });
 
@@ -66,19 +160,28 @@ $(document).ready(function(){
 
 function adjustCanvasSize(){
   //original pic size: width="1080" height="810"
-  var cw = width-30;
-  var ch = height*0.92;
-
+  var cw = 1024;//width-30;
+  var ch = 768;//height*0.92;
+  var ow = 1892;
   $('canvas').attr('width',cw+"px").attr('height',ch+"px");
+
+  //scale = screenWidth / canvasWidth
+  //newPieceWidth = originalPieceWidth * scale
+  scale = cw/ow;
 
 }
 
 function createPrototypes(data){
 
   data.prototype = new fabric.Path(data.path);
+  // var offsetX = data.prototype.getWidth()*scale - data.prototype.getWidth();
+  // offsetX = offsetX + data.prototype.getLeft();
+  // var offsetY = data.prototype.getHeight()*scale - data.prototype.getHeight();
+  // offsetY = offsetY + data.prototype.getTop();
+  // console.log(data.prototype.getTop()+","+data.prototype.getLeft());
   data.prototype.set({selectable:false, hasControls:false, fill: 'rgba(255,255,255,0.2)', stroke: '#fff'});
-  canvas.add(data.prototype);
 
+  canvas.add(data.prototype);
 }
 
 //------createPieces- Initially create and display puzzle pieces-----//
@@ -103,13 +206,24 @@ function createPieces(data){
   });
 
   data.pieceObj = new fabric.Path(data.path);
+  // var offsetX = data.pieceObj.getWidth()*scale - data.pieceObj.getWidth();
+  // offsetX = offsetX + data.pieceObj.getLeft();
+  // var offsetY = data.pieceObj.getHeight()*scale - data.pieceObj.getHeight();
+  // offsetY = offsetY + data.pieceObj.getTop();
+  // console.log(data.pieceObj.getWidth());
+  // console.log(data.pieceObj.getWidth()*scale);
   data.pieceObj.set({hasControls:false, hasBorders:false});
+  // console.log(data.pieceObj.getWidth());
 
   data.pieceObj.fill = data.textureObj;
   // console.log(data.pieceObj);
   canvas.add(data.pieceObj);
   });
 
+}
+
+function adjustSize() {
+  console.log(canvas.getActiveObject());
 }
 
 function onChange(options) {
