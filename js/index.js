@@ -125,18 +125,14 @@ var pieceData = [
 ];
 
 $(document).ready(function(){
-
-
   $(window).resize(function () {
     if (this.resizeTO) clearTimeout(this.resizeTO);
     this.resizeTO = setTimeout(function () {
         $(this).trigger('resizeEnd');
     }, 500);
   });
-
   $(window).bind('resizeEnd', function () {
-    // adjustCanvasSize();
-    // canvas = new fabric.Canvas('canvas');
+
   });
 
   $(window).load(function() {
@@ -148,9 +144,8 @@ $(document).ready(function(){
     for(var i = 0; i < pieceData.length ; i++){
       createPieces(pieceData[i]);
     }
-    // adjustSize();
     canvas.on({
-      'touch:drag': onChange
+      'object:moving': onChange
     });
   });
 
@@ -160,8 +155,8 @@ $(document).ready(function(){
 
 function adjustCanvasSize(){
   //original pic size: width="1080" height="810"
-  var cw = 1024;//width-30;
-  var ch = 768;//height*0.92;
+  var cw = 1024; //width-30;
+  var ch = 768; //height*0.92;
   var ow = 1892;
   $('canvas').attr('width',cw+"px").attr('height',ch+"px");
 
@@ -179,7 +174,7 @@ function createPrototypes(data){
   // var offsetY = data.prototype.getHeight()*scale - data.prototype.getHeight();
   // offsetY = offsetY + data.prototype.getTop();
   // console.log(data.prototype.getTop()+","+data.prototype.getLeft());
-  data.prototype.set({selectable:false, hasControls:false, fill: 'rgba(255,255,255,0.2)', stroke: '#fff'});
+  data.prototype.set({selectable:false, hasControls:false, fill: 'rgba(255,255,255,0.2)'});
 
   canvas.add(data.prototype);
 }

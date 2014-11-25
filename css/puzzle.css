@@ -9,10 +9,15 @@
 }
 
 .debug-3{
-  background-color: black;
+  /*background-color: black;*/
   /*height: 700px;*/
 }
 
+
+.temp-bg{
+  background: url('../assets/bg.jpg') no-repeat;
+
+}
 /*.canvas-wrapper{
   margin-top: 2%;
 }*/
