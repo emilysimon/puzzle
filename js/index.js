@@ -2,6 +2,7 @@ var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 var scale;
 var canvas;
+// var patternSourceCanvas;
 var piece1, piece2, piece3;
 var texture1, texture2, texture3;
 
@@ -138,11 +139,15 @@ $(document).ready(function(){
   $(window).load(function() {
     adjustCanvasSize();
     canvas = this.__canvas = new fabric.Canvas('canvas');
-    for(var i = 0; i < pieceData.length ; i++){
-      createPrototypes(pieceData[i]);
-    }
+
     for(var i = 0; i < pieceData.length ; i++){
       createPieces(pieceData[i]);
+    }
+
+    cache();
+
+    for(var i = 0; i < pieceData.length ; i++){
+      createPrototypes(pieceData[i]);
     }
     canvas.on({
       'object:moving': onChange
@@ -162,19 +167,14 @@ function adjustCanvasSize(){
 
   //scale = screenWidth / canvasWidth
   //newPieceWidth = originalPieceWidth * scale
-  scale = cw/ow;
+  // scale = cw/ow;
 
 }
 
 function createPrototypes(data){
 
   data.prototype = new fabric.Path(data.path);
-  // var offsetX = data.prototype.getWidth()*scale - data.prototype.getWidth();
-  // offsetX = offsetX + data.prototype.getLeft();
-  // var offsetY = data.prototype.getHeight()*scale - data.prototype.getHeight();
-  // offsetY = offsetY + data.prototype.getTop();
-  // console.log(data.prototype.getTop()+","+data.prototype.getLeft());
-  data.prototype.set({selectable:false, hasControls:false, fill: 'rgba(255,255,255,0.2)'});
+  data.prototype.set({selectable:false, hasControls:false, fill:'rgba(255,255,255,0)'});
 
   canvas.add(data.prototype);
 }
@@ -184,9 +184,6 @@ function createPrototypes(data){
 function createPieces(data){
 
   fabric.Image.fromURL(data.textureUrl, function(img) {
-
-  // img.scaleToWidth(100);
-
   var patternSourceCanvas = new fabric.StaticCanvas();
   patternSourceCanvas.add(img);
 
@@ -201,21 +198,39 @@ function createPieces(data){
   });
 
   data.pieceObj = new fabric.Path(data.path);
-  // var offsetX = data.pieceObj.getWidth()*scale - data.pieceObj.getWidth();
-  // offsetX = offsetX + data.pieceObj.getLeft();
-  // var offsetY = data.pieceObj.getHeight()*scale - data.pieceObj.getHeight();
-  // offsetY = offsetY + data.pieceObj.getTop();
-  // console.log(data.pieceObj.getWidth());
-  // console.log(data.pieceObj.getWidth()*scale);
   data.pieceObj.set({hasControls:false, hasBorders:false});
-  // console.log(data.pieceObj.getWidth());
-
   data.pieceObj.fill = data.textureObj;
-  // console.log(data.pieceObj);
+
   canvas.add(data.pieceObj);
   });
 
+
 }
+
+function cache() {
+  console.log("in chache");
+  canvas.forEachObject(function(obj, i) {
+    // console.log(obj);
+    if (obj.type === 'image') return;
+
+    var scaleX = obj.scaleX;
+    var scaleY = obj.scaleY;
+
+    canvas.remove(obj);
+    obj.scale(1).cloneAsImage(function(clone) {
+      clone.set({
+        left: obj.left,
+        top: obj.top,
+        scaleX: scaleX,
+        scaleY: scaleY
+      });
+      canvas.insertAt(clone, i);
+      console.log(clone);
+    });
+  });
+}
+
+
 
 function adjustSize() {
   console.log(canvas.getActiveObject());
