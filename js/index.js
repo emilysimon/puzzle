@@ -149,9 +149,11 @@ $(document).ready(function(){
     for(var i = 0; i < pieceData.length ; i++){
       createPrototypes(pieceData[i]);
     }
-    canvas.on({
-      'object:moving': onChange
-    });
+
+    cachePrototypes();
+    // canvas.on({
+    //   'object:moving': onChange
+    // });
   });
 
 });
@@ -225,10 +227,37 @@ function cache() {
         scaleY: scaleY
       });
       canvas.insertAt(clone, i);
-      console.log(clone);
+      // console.log(clone);
     });
   });
 }
+
+function cachePrototypes() {
+  console.log("in chache");
+  canvas.forEachObject(function(obj, i) {
+    // console.log(obj);
+    if (obj.type === 'image') return;
+
+    var scaleX = obj.scaleX;
+    var scaleY = obj.scaleY;
+
+    canvas.remove(obj);
+    obj.scale(1).cloneAsImage(function(clone) {
+      clone.set({
+        left: obj.left,
+        top: obj.top,
+        scaleX: scaleX,
+        scaleY: scaleY,
+        selectable:false,
+        hasControls:false,
+
+      });
+      canvas.insertAt(clone, i);
+      // console.log(clone);
+    });
+  });
+}
+
 
 
 
