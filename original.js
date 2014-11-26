@@ -144,16 +144,19 @@ $(document).ready(function(){
     for(var i = 0; i < pieceData.length ; i++){
       createPieces(pieceData[i]);
     }
-    for(var i = 0; i < pieceData.length ; i++){
-      createPrototypes(pieceData[i]);
-    }
-
-    // cache();
 
 
-    canvas.on({
-      'object:moving': onChange
-    });
+    // for(var i = 0; i < pieceData.length ; i++){
+    //   createPrototypes(pieceData[i]);
+    // }
+
+    // cachePrototypes();
+    cache();
+
+
+    // canvas.on({
+    //   'object:moving': onChange
+    // });
 
   });
 
@@ -177,13 +180,7 @@ function adjustCanvasSize(){
 function createPrototypes(data){
 
   data.prototype = new fabric.Path(data.path);
-  data.prototype.set({
-    index:data.index,
-    selectable:false,
-    hasControls:false,
-    hasRotatingPoint:false,
-    fill:'rgba(255,255,255,0)'
-  });
+  data.prototype.set({selectable:false, hasControls:false, hasRotatingPoint:false, fill:'rgba(255,255,255,0)'});
 
   canvas.add(data.prototype);
 }
@@ -192,21 +189,39 @@ function createPrototypes(data){
 
 function createPieces(data){
 
-  var random_l = Math.random();
-  var random_t = Math.random();
-  var _left = Math.floor(random_l*100)+750;
-  var _top = Math.floor(random_t*400)+100;
-
   fabric.Image.fromURL(data.textureUrl, function(img) {
-    img.scale(1).set({
-      index: data.index,
-      left: _left,
-      top: _top,
-      hasControls:false,
-      hasRotatingPoint:false,
-      hasBorders:false
+  var patternSourceCanvas = new fabric.StaticCanvas();
+  patternSourceCanvas.add(img);
+
+  data.textureObj = new fabric.Pattern({
+  source: function() {
+    patternSourceCanvas.setDimensions({
+      width: img.getWidth(),
+      height: img.getHeight()
     });
-    canvas.add(img).setActiveObject(img);
+    return patternSourceCanvas.getElement();
+  }
+  });
+
+  data.pieceObj = new fabric.Path(data.path);
+  data.pieceObj.set({hasControls:false, hasBorders:false, hasRotatingPoint:false});
+  data.pieceObj.fill = data.textureObj;
+  console.log(data.pieceObj);
+  // data.pieceObj.cloneAsImage(function(clone) {
+  //   clone.set({
+  //     left: obj.left,
+  //     top: obj.top,
+  //     scaleX: scaleX,
+  //     scaleY: scaleY
+  //   });
+  //   // canvas.add(clone);
+  // });
+
+  canvas.add(data.pieceObj)
+  // console.log(canvas);
+  canvas.forEachObject(function(obj,i){
+    console.log("---------------"+obj);
+  })
   });
 
 
@@ -214,9 +229,11 @@ function createPieces(data){
 
 function cache() {
   console.log("in chache");
+  console.log(canvas.getObjects());
+
 
   canvas.forEachObject(function(obj, i) {
-    // console.log(canvas);
+    console.log(canvas);
     if (obj.type === 'image') return;
 
     var scaleX = obj.scaleX;
@@ -231,6 +248,7 @@ function cache() {
         scaleY: scaleY
       });
       canvas.insertAt(clone, i);
+      // console.log(clone);
     });
   });
   // canvas.forEachObject(function(obj, i) {
@@ -259,9 +277,13 @@ function cachePrototypes() {
 
       });
       canvas.insertAt(clone, i);
+      // console.log(clone);
     });
   });
 }
+
+
+
 
 function adjustSize() {
   console.log(canvas.getActiveObject());
@@ -269,24 +291,26 @@ function adjustSize() {
 
 function onChange(options) {
   // console.log(options.target.path);
-  // console.log(options.target.index);
+  console.log(options.target);
 
   // (function render(){
   //   canvas.renderAll();
   //   fabric.util.requestAnimFrame(render);
   // })();
 
+
   var that = options.target;
   var thatPrototype;
 
+
   that.setCoords();
   canvas.forEachObject(function(obj) {
-    if(!obj.selectable && that.index === obj.index) {
+
+    if(!obj.selectable && obj.width === that.width && obj.height === that.height) {
       thatPrototype=obj;
-      // console.log(obj.index);
     }
   });
 
-  thatPrototype.setOptions(that.intersectsWithObject(thatPrototype) ? {fill:'rgba(255,0,0,0.2)' } : {fill:'rgba(255,255,255,0.2)'});
+  // thatPrototype.setOptions(that.intersectsWithObject(thatPrototype) ? {fill:'rgba(255,0,0,0.2)' } : {fill:'rgba(255,255,255,0.2)'});
   // alert("You got it!");
 }
