@@ -1,11 +1,10 @@
 var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 var scale;
-var canvas;
-// var patternSourceCanvas;
-var piece1, piece2, piece3;
-var texture1, texture2, texture3;
 
+var canvas;
+var checkObjectCanvas;
+var selectedObject, selectedPrototype;
 var pieceData = [
   {
     'index':'11',
@@ -150,16 +149,18 @@ $(document).ready(function(){
 
     // cache();
 
-
     canvas.on({
-      'object:moving': onChange
+      'object:moving': checkSelectedObject
     });
 
   });
 
 });
 
-//------adjustCanvasSize- Initially set canvas width and height for being respoinsive-----//
+//------adjustCanvasSize- Initially set canvas width and height for being respoinsive  -----//
+//------For a better canvas performance,
+//------it is fixed in iPad screen resolution for now.
+
 
 function adjustCanvasSize(){
   //original pic size: width="1080" height="810"
@@ -174,6 +175,8 @@ function adjustCanvasSize(){
 
 }
 
+//------createPrototypes- Initially create puzzle pieces position prototype-----//
+
 function createPrototypes(data){
 
   data.prototype = new fabric.Path(data.path);
@@ -182,6 +185,7 @@ function createPrototypes(data){
     selectable:false,
     hasControls:false,
     hasRotatingPoint:false,
+    isSolved:false,
     fill:'rgba(255,255,255,0)'
   });
 
@@ -204,13 +208,17 @@ function createPieces(data){
       top: _top,
       hasControls:false,
       hasRotatingPoint:false,
-      hasBorders:false
+      hasBorders:false,
+      isSolved:false
     });
     canvas.add(img).setActiveObject(img);
   });
 
 
 }
+
+//------cache- cache SVG as a image object for performance-----//
+
 
 function cache() {
   console.log("in chache");
@@ -233,60 +241,64 @@ function cache() {
       canvas.insertAt(clone, i);
     });
   });
-  // canvas.forEachObject(function(obj, i) {
-    // console.log(canvas);
-  // });
-}
-
-function cachePrototypes() {
-  console.log("in chache");
-  canvas.forEachObject(function(obj, i) {
-    // console.log(obj);
-    if (obj.type === 'image') return;
-
-    var scaleX = obj.scaleX;
-    var scaleY = obj.scaleY;
-
-    canvas.remove(obj);
-    obj.scale(1).cloneAsImage(function(clone) {
-      clone.set({
-        left: obj.left,
-        top: obj.top,
-        scaleX: scaleX,
-        scaleY: scaleY,
-        selectable:false,
-        hasControls:false,
-
-      });
-      canvas.insertAt(clone, i);
-    });
-  });
 }
 
 function adjustSize() {
   console.log(canvas.getActiveObject());
 }
 
-function onChange(options) {
-  // console.log(options.target.path);
-  // console.log(options.target.index);
-
-  // (function render(){
-  //   canvas.renderAll();
-  //   fabric.util.requestAnimFrame(render);
-  // })();
-
-  var that = options.target;
-  var thatPrototype;
-
-  that.setCoords();
+function checkSelectedObject(options) {
+  selectedObject = options.target;
+  selectedObject.setCoords();
   canvas.forEachObject(function(obj) {
-    if(!obj.selectable && that.index === obj.index) {
-      thatPrototype=obj;
-      // console.log(obj.index);
+    if(!obj.selectable && !obj.isSolved && selectedObject.index === obj.index) {
+      selectedPrototype=obj;
     }
   });
+  //console.log("selectedObject: "+ selectedObject);
+  //console.log("selectedPrototype: "+ selectedPrototype);
+  checkIntersect(selectedObject, selectedPrototype);
+}
 
-  thatPrototype.setOptions(that.intersectsWithObject(thatPrototype) ? {fill:'rgba(255,0,0,0.2)' } : {fill:'rgba(255,255,255,0.2)'});
-  // alert("You got it!");
+
+function checkIntersect(obj, objPrototype){
+
+  var checkRect = new fabric.Rect({
+    left: objPrototype.left,
+    top: objPrototype.top+objPrototype.height/3,
+    width: objPrototype.width/3,
+    height: objPrototype.height/3,
+    visible: false,
+    selectable:false,
+    hasControls:false,
+    hasRotatingPoint:false
+  });
+
+  checkObjectCanvas = new fabric.StaticCanvas();
+  checkObjectCanvas.add(checkRect);
+
+  if(obj.intersectsWithObject(checkRect)){
+    console.log("intersected");
+    checkObjectCanvas.clear();
+
+    successAnimation(obj, objPrototype);
+
+    // canvas.on({
+    //   'mouse:down': successAnimation(obj, objPrototype)
+    // });
+  }
+
+
+}
+
+function successAnimation(obj, objPrototype){
+  obj.left = objPrototype.left;
+  obj.top = objPrototype.top;
+  obj.selectable = false;
+  obj.isSolved = true;
+  objPrototype.isSolved = true;
+  // obj.animate('left',objPrototype.left,{
+  //   duration:2000
+  // });
+
 }
