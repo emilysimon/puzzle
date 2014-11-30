@@ -1,3 +1,15 @@
+#viewport {
+  position:relative;
+}
+#viewport canvas {
+  position:absolute;
+}
+canvas {
+/**
+* Set transparent to let any other canvases render through
+*/
+  background-color: transparent;
+}
 .debug {
   background-color: red;
   /*height: 700px;*/
@@ -18,9 +30,7 @@
   background: url('../assets/bg.jpg') no-repeat;
   width: 1024px;
   height: 768px;
-  position: fixed;
+  position: absolute;
+  z-index: -100;
 
 }
-/*.canvas-wrapper{
-  margin-top: 2%;
-}*/

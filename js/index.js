@@ -137,22 +137,41 @@ $(document).ready(function(){
 
   $(window).load(function() {
     adjustCanvasSize();
-    canvas = this.__canvas = new fabric.Canvas('canvas');
-    canvas.selection = false
+
+    fabric.Object.prototype.transparentCorners = false;
+    canvas = this.__canvas = new fabric.Canvas('piece-canvas');
+    canvas.selection = false;
 
     for(var i = 0; i < pieceData.length ; i++){
-      createPieces(pieceData[i]);
+      var piece = new PuzzlePiece(pieceData[i].textureUrl,{
+        left : Math.floor(Math.random()*100)+820, //this.image.width;
+        top : Math.floor(Math.random()*500)+100, //this.image.height;
+        index : pieceData[i].index,
+        type : "piece",
+        hasControls : false,
+        hasRotatingPoint : false,
+        hasBorders : false,
+        isSolved : false
+      });
+
+      var prototype = new Prototype(pieceData[i].path,{
+        index : pieceData[i].index,
+        type : "prototype",
+        selectable: false,
+        hasControls : false,
+        hasRotatingPoint : false,
+        hasBorders : false,
+        isSolved : false,
+        // fill:'rgba(255,0,0,0.2)'
+        visible: false
+      });
+
+      piece.on('image:loaded', canvas.renderAll.bind(canvas));
+      canvas.add(piece, prototype);
+      // console.log(prototype);
+
     }
-    for(var i = 0; i < pieceData.length ; i++){
-      createPrototypes(pieceData[i]);
-    }
-
-    // cache();
-
-    canvas.on({
-      'object:moving': checkSelectedObject
-    });
-
+    canvas.renderAll();
   });
 
 });
@@ -168,137 +187,5 @@ function adjustCanvasSize(){
   var ch = 768; //height*0.92;
   var ow = 1892;
   $('canvas').attr('width',cw+"px").attr('height',ch+"px");
-
-  //scale = screenWidth / canvasWidth
-  //newPieceWidth = originalPieceWidth * scale
-  // scale = cw/ow;
-
-}
-
-//------createPrototypes- Initially create puzzle pieces position prototype-----//
-
-function createPrototypes(data){
-
-  data.prototype = new fabric.Path(data.path);
-  data.prototype.set({
-    index:data.index,
-    selectable:false,
-    hasControls:false,
-    hasRotatingPoint:false,
-    isSolved:false,
-    fill:'rgba(255,255,255,0)'
-  });
-
-  canvas.add(data.prototype);
-}
-
-//------createPieces- Initially create and display puzzle pieces-----//
-
-function createPieces(data){
-
-  var random_l = Math.random();
-  var random_t = Math.random();
-  var _left = Math.floor(random_l*100)+750;
-  var _top = Math.floor(random_t*400)+100;
-
-  fabric.Image.fromURL(data.textureUrl, function(img) {
-    img.scale(1).set({
-      index: data.index,
-      left: _left,
-      top: _top,
-      hasControls:false,
-      hasRotatingPoint:false,
-      hasBorders:false,
-      isSolved:false
-    });
-    canvas.add(img).setActiveObject(img);
-  });
-
-
-}
-
-//------cache- cache SVG as a image object for performance-----//
-
-
-function cache() {
-  console.log("in chache");
-
-  canvas.forEachObject(function(obj, i) {
-    // console.log(canvas);
-    if (obj.type === 'image') return;
-
-    var scaleX = obj.scaleX;
-    var scaleY = obj.scaleY;
-
-    canvas.remove(obj);
-    obj.scale(1).cloneAsImage(function(clone) {
-      clone.set({
-        left: obj.left,
-        top: obj.top,
-        scaleX: scaleX,
-        scaleY: scaleY
-      });
-      canvas.insertAt(clone, i);
-    });
-  });
-}
-
-function adjustSize() {
-  console.log(canvas.getActiveObject());
-}
-
-function checkSelectedObject(options) {
-  selectedObject = options.target;
-  selectedObject.setCoords();
-  canvas.forEachObject(function(obj) {
-    if(!obj.selectable && !obj.isSolved && selectedObject.index === obj.index) {
-      selectedPrototype=obj;
-    }
-  });
-  //console.log("selectedObject: "+ selectedObject);
-  //console.log("selectedPrototype: "+ selectedPrototype);
-  checkIntersect(selectedObject, selectedPrototype);
-}
-
-
-function checkIntersect(obj, objPrototype){
-
-  var checkRect = new fabric.Rect({
-    left: objPrototype.left,
-    top: objPrototype.top+objPrototype.height/3,
-    width: objPrototype.width/3,
-    height: objPrototype.height/3,
-    visible: false,
-    selectable:false,
-    hasControls:false,
-    hasRotatingPoint:false
-  });
-
-  checkObjectCanvas = new fabric.StaticCanvas();
-  checkObjectCanvas.add(checkRect);
-
-  if(obj.intersectsWithObject(checkRect)){
-    console.log("intersected");
-    checkObjectCanvas.clear();
-
-    successAnimation(obj, objPrototype);
-
-    // canvas.on({
-    //   'mouse:down': successAnimation(obj, objPrototype)
-    // });
-  }
-
-
-}
-
-function successAnimation(obj, objPrototype){
-  obj.left = objPrototype.left;
-  obj.top = objPrototype.top;
-  obj.selectable = false;
-  obj.isSolved = true;
-  objPrototype.isSolved = true;
-  // obj.animate('left',objPrototype.left,{
-  //   duration:2000
-  // });
 
 }
