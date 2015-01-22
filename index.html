@@ -8,14 +8,17 @@
     <link href="css/puzzle.css" rel="stylesheet">
   </head>
   <body>
-      <div class="container-fluid">
-        <div class="row-fluid canvas-wrapper debug-3">
-          <canvas id="canvas"></canvas>
-        </div>
+      <!-- <div class="container-fluid"> -->
+      <div id="viewport">
+        <div class="row-fluid canvas-wrapper temp-bg"></div>
+        <canvas id="piece-canvas" widt="1024px" height="768px"></canvas>
+        <!-- <canvas id="prototype-canvas" widt="1024px" height="768px"></canvas> -->
       </div>
+      <!-- </div> -->
       <script src="https://code.jquery.com/jquery.js"></script>
       <script src="js/bootstrap.min.js"></script>
       <script src="js/fabric.js"></script>
       <script src="js/index.js"></script>
+      <script src="js/models.js"></script>
   </body>
 </html>

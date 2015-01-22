@@ -1,3 +1,15 @@
+#viewport {
+  position:relative;
+}
+#viewport canvas {
+  position:absolute;
+}
+canvas {
+/**
+* Set transparent to let any other canvases render through
+*/
+  background-color: transparent;
+}
 .debug {
   background-color: red;
   /*height: 700px;*/
@@ -9,10 +21,16 @@
 }
 
 .debug-3{
-  background-color: black;
+  /*background-color: black;*/
   /*height: 700px;*/
 }
 
-.canvas-wrapper{
-  margin-top: 2%;
+
+.temp-bg{
+  background: url('../assets/diagram.jpg') no-repeat;
+  width: 1024px;
+  height: 768px;
+  position: absolute;
+  z-index: -100;
+
 }
