@@ -17,8 +17,8 @@ var PuzzlePiece = fabric.util.createClass(fabric.Object, fabric.Observable, {
     this.isSolved = false;
     this.successImage =successSrc;
     this.image.onload = (function() {
-      this.left = Math.floor(Math.random()*100)+720; //this.image.width;
-      this.top = Math.floor(Math.random()*450)+50; //this.image.height;
+      this.left = Math.floor(Math.random()*100)+800; //this.image.width;
+      this.top = Math.floor(Math.random()*500)+30; //this.image.height;
       this.width = this.image.width;
       this.height = this.image.height;
       this.loaded = true;
@@ -102,7 +102,7 @@ var PuzzlePiece = fabric.util.createClass(fabric.Object, fabric.Observable, {
       opacity: 1
     }, {
       easing: fabric.util.ease.easeOutCubic,
-      duration: 2000,
+      // duration: 2000,
       onChange: canvas.renderAll.bind(canvas)
     });
 
@@ -111,7 +111,7 @@ var PuzzlePiece = fabric.util.createClass(fabric.Object, fabric.Observable, {
     if(debug) console.log("///////// \n draw key stone after all pieces solved \n /////////");
     var keyStone = new SuccessPiece('./assets/key.png');
 
-    keyStone.set({left:218, top:174, index: this.index, selectable: false});
+    keyStone.set({left:364, top:260, index: this.index, selectable: false});
     canvas.add(keyStone);
     canvas.renderAll();
     // console.log(successPiece);
