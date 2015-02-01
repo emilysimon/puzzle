@@ -72,20 +72,45 @@ var PuzzlePiece = fabric.util.createClass(fabric.Object, fabric.Observable, {
     if(debug) console.log("///////// \n piece Solved \n /////////");
 
     this.set({originX: 'left', originY: 'top', left: p.left, top: p.top, isSolved: true, selectable: false});
-    this.animate({
-      // opacity: 1,
-      'shadow.offsetX' : 0,
-      'shadow.offsetY' : 0,
-    }, {
-      easing: fabric.util.ease.easeOutCubic,
-      duration: 500,
-      onChange: canvas.renderAll.bind(canvas)
-    });
+    // this.animate({
+    //   // opacity: 1,
+    //   'shadow.offsetX' : 0,
+    //   'shadow.offsetY' : 0,
+    // }, {
+    //   easing: fabric.util.ease.easeOutCubic,
+    //   duration: 500,
+    //   onChange: canvas.renderAll.bind(canvas)
+    // });
 
-    this.drawSuccessImage();
+    this.successAnimation(this);
     successCount++;
     // console.log(successCount);
     if(successCount == 19) this.checkAllSolved();
+
+  },
+  successAnimation: function(obj){
+    // console.log(obj);
+    obj.set({
+      scaleX: 1.3,
+      scaleY: 1.3,
+      opacity: 0.7
+    });
+    obj.setShadow('0px 0px 80px rgba(226,178,39,0.8)');
+    obj.animate({
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 1
+    },{
+      onChange: canvas.renderAll.bind(canvas),
+      onComplete: function onComplete() {
+        obj.drawSuccessImage();
+        obj.setShadow('0px 0px 0px rgba(0,0,0,0)');
+        
+        var successAudio = new Audio('assets/audio/tada.wav');
+        successAudio.play();
+      }
+    });
+
 
   },
   drawSuccessImage: function(){
