@@ -105,8 +105,8 @@ var PuzzlePiece = fabric.util.createClass(fabric.Object, fabric.Observable, {
       onComplete: function onComplete() {
         obj.drawSuccessImage();
         obj.setShadow('0px 0px 0px rgba(0,0,0,0)');
-        
-        var successAudio = new Audio('assets/audio/tada.wav');
+
+        var successAudio = new Audio('assets/audio/tada.mp3');
         successAudio.play();
       }
     });
